@@ -63,9 +63,16 @@ streamlit.stop()
 # streamlit.text(my_data_row)
 
 
-
+def insert_row_snowflake(new_fruit):
+  with my_cnx as cursor:
+    my_cur = my_cnx.cursor()
+    my_cur.execute("insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values ('from streamlit')");
+    return "Thanks for addding " + new_fruit
 
 my_added_fruit = streamlit.text_input('What fruit would you like to add?','')
-streamlit.write('Thanks for adding ', my_added_fruit)
+if streamlit.button("Add fruit to list"):
+  insert_row_snowflake(my_added_fruit)
+  fruit_added = insert_row_snowflake(my_added_fruit)
+  streamlit.write(fruit_added)
 
-my_cur.execute("insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values ('from streamlit')");
+
